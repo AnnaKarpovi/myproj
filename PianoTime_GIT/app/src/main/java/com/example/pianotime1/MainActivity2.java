@@ -12,9 +12,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity2 extends AppCompatActivity {
-    ContactsContract.CommonDataKinds.Note n = new ContactsContract.CommonDataKinds.Note(C4, CROTCHET);
-    Phrase p = new Phrase();
-    p.addNote(n);
+    // asdfasdfdfsfas
+    // asdfasdfdfsa
 
 
     public int var=0;
