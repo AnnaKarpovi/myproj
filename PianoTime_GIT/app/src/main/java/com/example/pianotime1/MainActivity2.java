@@ -12,10 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity2 extends AppCompatActivity {
-    // asdfasdfdfsfas
-    // asdfasdfdfsa
-
-
+    
     public int var=0;
     TextView C,D,E,F,G,A,B; boolean yon = false;
     Button buttonCC2, buttonA, buttonC, buttonE, buttonF, buttonG, buttonD, buttonB,button1sh,button2sh,button3sh,button4sh,button5sh;
