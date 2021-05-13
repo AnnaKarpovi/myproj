@@ -15,8 +15,6 @@ import com.nitishp.sheetmusic.MusicBarView;
 import com.nitishp.sheetmusic.NoteData;
 import com.nitishp.sheetmusic.NoteView;
 
-//import org.jfugue.Player;
-//import jp.kshoji.javax.sound.midi.UsbMidiSystem;
 
 
 public class MainActivity2 extends AppCompatActivity {
@@ -25,7 +23,7 @@ public class MainActivity2 extends AppCompatActivity {
     public int var=0;
 
     MusicBarView musBarView;
-    Button button123,buttonCC2, buttonA, buttonC, buttonE, buttonF, buttonG, buttonD, buttonB,button1sh,button2sh,button3sh,button4sh,button5sh;
+    Button buttonCC2, buttonA, buttonC, buttonE, buttonF, buttonG, buttonD, buttonB,bb1,bb2,bb3,bb4,bb5;
 
     private SoundPool soundPool;
     private int soundCC2;
@@ -56,11 +54,11 @@ public class MainActivity2 extends AppCompatActivity {
         buttonD = (Button) (findViewById(R.id.buttonD));
         buttonB = (Button) (findViewById(R.id.buttonB));
         buttonCC2 = (Button) (findViewById(R.id.buttonCC2));
-        button1sh = (Button) (findViewById(R.id.bb1));
-        button2sh = (Button) (findViewById(R.id.bb2));
-        button3sh = (Button) (findViewById(R.id.bb3));
-        button4sh = (Button) (findViewById(R.id.bb4));
-        button5sh = (Button) (findViewById(R.id.bb5));
+        bb1= (Button) (findViewById(R.id.bb1));
+        bb2 = (Button) (findViewById(R.id.bb2));
+        bb3 = (Button) (findViewById(R.id.bb3));
+        bb4 = (Button) (findViewById(R.id.bb4));
+        bb5 = (Button) (findViewById(R.id.bb5));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             soundPool = new SoundPool.Builder().setMaxStreams(3).build();
@@ -132,7 +130,45 @@ public class MainActivity2 extends AppCompatActivity {
                 note.setNoteValue(NoteData.NoteValue.valueOf("HIGHER_B"));
                 note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
                 musBarView.addNote(note);
-                break;} }};
+                break;
+            case R.id.bb1:
+
+                soundPool.play(sound1sh,1,1,0,0,1);
+                //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
+                //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
+                //musBarView.addNote(note);
+                break;
+            case R.id.bb2:
+                soundPool.play(sound2sh,1,1,0,0,1);
+                //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
+                //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
+                //musBarView.addNote(note);
+                break;
+            case R.id.bb3:
+                soundPool.play(sound3sh,1,1,0,0,1);
+                //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
+                //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
+                // musBarView.addNote(note);
+                break;
+            case R.id.bb4:
+                soundPool.play(sound4sh,1,1,0,0,1);
+                //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
+                //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
+                //musBarView.addNote(note);
+                break;
+            case R.id.bb5:
+                soundPool.play(sound5sh,1,1,0,0,1);
+                //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
+                //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
+                //musBarView.addNote(note);
+                break;
+            case R.id.buttonCC2:
+                soundPool.play(soundCC2,1,1,0,0,1);
+                note.setNoteValue(NoteData.NoteValue.valueOf("HIGHER_C"));
+                note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
+                musBarView.addNote(note);
+                break;
+            } }};
 
         buttonC.setOnClickListener(bth);
         buttonD.setOnClickListener(bth);
@@ -141,6 +177,14 @@ public class MainActivity2 extends AppCompatActivity {
         buttonB.setOnClickListener(bth);
         buttonE.setOnClickListener(bth);
         buttonA.setOnClickListener(bth);
+        bb1.setOnClickListener(bth);
+        bb2.setOnClickListener(bth);
+        bb3.setOnClickListener(bth);
+        bb4.setOnClickListener(bth);
+        bb5.setOnClickListener(bth);
+        buttonCC2.setOnClickListener(bth);
+
+
         //buttonC.setOnClickListener(new View.OnClickListener() {
             //@Override
             //public void onClick(View v) {
