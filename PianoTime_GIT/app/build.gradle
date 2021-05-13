@@ -22,6 +22,12 @@ android {
     }
 }
 
+repositories {
+    maven { url 'https://github.com/kshoji/JFugue-for-Android/raw/master/jfugue-android/snapshot' }
+    maven { url 'https://github.com/kshoji/USB-MIDI-Driver/raw/master/MIDIDriver/snapshots' }
+    maven { url "https://jitpack.io" }
+}
+
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.2.0'
@@ -29,5 +35,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
-
+    implementation 'jp.kshoji:jfugue-android:4.0.3:@aar'
+    implementation 'jp.kshoji:midi-driver:0.1.1:@aar'
+    implementation 'com.github.nitishp:sheetmusicview:v1.2.0'
 }
