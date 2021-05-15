@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+        <item
+            android:id="@+id/sixteenth"
+            android:title="@string/sixteenth" />
+
+        <item
+            android:id="@+id/half"
+            android:title="@string/half" />
+
+        <item
+            android:id="@+id/whole"
+            android:title="@string/whole" />
+        <item
+            android:id="@+id/EIGHTH"
+            android:title="@string/EIGHTH" />
+        <item
+            android:id="@+id/FOURTH"
+            android:title="@string/FOURTH" />
+
+
+</menu>

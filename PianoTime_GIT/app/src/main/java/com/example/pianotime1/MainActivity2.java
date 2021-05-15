@@ -1,10 +1,14 @@
 package com.example.pianotime1;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -23,6 +27,8 @@ public class MainActivity2 extends AppCompatActivity {
     public int var=0;
 
     MusicBarView musBarView;
+
+
     Button buttonCC2, buttonA, buttonC, buttonE, buttonF, buttonG, buttonD, buttonB,bb1,bb2,bb3,bb4,bb5;
 
     private SoundPool soundPool;
@@ -185,6 +191,7 @@ public class MainActivity2 extends AppCompatActivity {
         buttonCC2.setOnClickListener(bth);
 
 
+
         //buttonC.setOnClickListener(new View.OnClickListener() {
             //@Override
             //public void onClick(View v) {
@@ -201,4 +208,32 @@ public class MainActivity2 extends AppCompatActivity {
                // musBarView.addNote(note);
             //}});
 
-    }}
+    }
+    /*@Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.main_menu, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle item selection
+        switch (item.getItemId()) {
+            case R.id.sixteenth:
+                // do something
+                return true;
+
+            case R.id.half:
+                //do something
+                return true;
+
+            case R.id.whole:
+                //do something
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }*/
+}
