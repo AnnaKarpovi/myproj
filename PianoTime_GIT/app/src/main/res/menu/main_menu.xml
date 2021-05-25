@@ -28,11 +28,8 @@
                     android:orderInCategory="100"
 
                     android:title="@string/eighth" />
-                <item
-                    android:id="@+id/sixteenth"
-                    android:title="@string/sixteenth"
-                    android:orderInCategory="100"
-                    />
+
+
 
         </group>
 

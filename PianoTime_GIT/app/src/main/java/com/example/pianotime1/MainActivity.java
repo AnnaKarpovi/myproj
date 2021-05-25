@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
 public class MainActivity extends AppCompatActivity {
     Button b1;
     @Override
@@ -30,9 +29,5 @@ public class MainActivity extends AppCompatActivity {
     public void openActivity2(){
         Intent i = new Intent(this, MainActivity2.class);
         startActivity(i);
-
-
-
-        }
-
+    }
 }

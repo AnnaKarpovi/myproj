@@ -1,61 +1,46 @@
 package com.example.pianotime1;
 
-
-import android.annotation.SuppressLint;
-import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.nitishp.sheetmusic.MusicBarView;
-import com.nitishp.sheetmusic.NoteData;
-import com.nitishp.sheetmusic.NoteView;
-
-
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStreamWriter;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 public class MainActivity2 extends AppCompatActivity {
 
-
-    public int var=0;
-
     MusicBarView musBarView;
-    String duration;
-
-    Button buttonCC2, buttonA, buttonC, buttonE, buttonF, buttonG, buttonD, buttonB,bb1,bb2,bb3,bb4,bb5;
+    NoteData.NoteDuration duration;
+    Button buttonCC2, buttonA, buttonC, buttonE, buttonF, buttonG, buttonD, buttonB,bb1,bb2,bb3,bb4,bb5,buttonClear,buttonSave,buttonLoad;
 
     private SoundPool soundPool;
-    private int soundCC2;
-    private int soundC;
-    private int soundD;
-    private int soundE;
-    private int soundF;
-    private int soundG;
-    private int soundA;
-    private int soundB;
-    private int sound1sh;
-    private int sound2sh;
-    private int sound3sh;
-    private int sound4sh;
-    private int sound5sh;
+    private int soundCC2, soundC, soundD, soundE, soundF, soundG, soundA, soundB, sound1sh, sound2sh, sound3sh, sound4sh, sound5sh;
+
+    private final String filename = "pianotimeSavedData";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Log.d("MAIN", "AAAAA");
         setContentView(R.layout.activity_main2);
-        duration = "HALF";
-        // Log.d("MAIN", "AAAAA");
+        duration = NoteData.NoteDuration.WHOLE;
+
         buttonA = (Button) (findViewById(R.id.buttonA));
         buttonC = (Button) (findViewById(R.id.buttonC));
         buttonE = (Button) (findViewById(R.id.buttonE));
@@ -69,6 +54,9 @@ public class MainActivity2 extends AppCompatActivity {
         bb3 = (Button) (findViewById(R.id.bb3));
         bb4 = (Button) (findViewById(R.id.bb4));
         bb5 = (Button) (findViewById(R.id.bb5));
+        buttonClear = (Button) (findViewById(R.id.buttonClear));
+        buttonSave = (Button) (findViewById(R.id.buttonSave));
+        buttonLoad = (Button) (findViewById(R.id.buttonLoad));
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             soundPool = new SoundPool.Builder().setMaxStreams(3).build();
@@ -90,95 +78,62 @@ public class MainActivity2 extends AppCompatActivity {
         sound4sh = soundPool.load(this, R.raw.shp4, 0);
         sound5sh = soundPool.load(this, R.raw.shp5, 0);
 
-
         musBarView = (MusicBarView) (findViewById(R.id.musBarView));
         View.OnClickListener bth = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NoteData note = new NoteData(NoteData.NoteValue.valueOf("LOWER_C"), NoteData.NoteDuration.valueOf(duration));
                 switch (v.getId()) {
                     case R.id.buttonC:
                         soundPool.play(soundC, 1, 1, 0, 0, 1);
-                        note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf(duration));
-
-                        musBarView.addNote(note);
-
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_C, duration));
                         break;
-
                     case R.id.buttonD:
                         soundPool.play(soundD, 1, 1, 0, 0, 1);
-                        note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_D"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf(duration));
-
-                        musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_D, duration));
                         break;
                     case R.id.buttonE:
                         soundPool.play(soundE, 1, 1, 0, 0, 1);
-                        note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_E"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf(duration));
-                        musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_E, duration));
                         break;
                     case R.id.buttonF:
                         soundPool.play(soundF, 1, 1, 0, 0, 1);
-                        note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_F"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf(duration));
-                        musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_F, duration));
                         break;
                     case R.id.buttonG:
                         soundPool.play(soundG, 1, 1, 0, 0, 1);
-                        note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_G"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf(duration));
-                        musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_G, duration));
                         break;
                     case R.id.buttonA:
                         soundPool.play(soundA, 1, 1, 0, 0, 1);
-                        note.setNoteValue(NoteData.NoteValue.valueOf("HIGHER_A"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf(duration));
-                        musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.HIGHER_A, duration));
                         break;
                     case R.id.buttonB:
                         soundPool.play(soundB, 1, 1, 0, 0, 1);
-                        note.setNoteValue(NoteData.NoteValue.valueOf("HIGHER_B"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf(duration));
-                        musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.HIGHER_B, duration));
                         break;
                     case R.id.bb1:
-
                         soundPool.play(sound1sh, 1, 1, 0, 0, 1);
-                        //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
-                        //musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_C, duration,true));
                         break;
                     case R.id.bb2:
                         soundPool.play(sound2sh, 1, 1, 0, 0, 1);
-                        //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
-                        //musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_D, duration,true));
                         break;
                     case R.id.bb3:
                         soundPool.play(sound3sh, 1, 1, 0, 0, 1);
-                        //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
-                        // musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_F, duration,true));
                         break;
                     case R.id.bb4:
                         soundPool.play(sound4sh, 1, 1, 0, 0, 1);
-                        //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
-                        //musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.LOWER_G, duration,true));
                         break;
                     case R.id.bb5:
                         soundPool.play(sound5sh, 1, 1, 0, 0, 1);
-                        //note.setNoteValue(NoteData.NoteValue.valueOf("LOWER_C"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
-                        //musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.HIGHER_A, duration,true));
                         break;
                     case R.id.buttonCC2:
                         soundPool.play(soundCC2, 1, 1, 0, 0, 1);
-                        note.setNoteValue(NoteData.NoteValue.valueOf("HIGHER_C"));
-                        //note.setNoteDuration(NoteData.NoteDuration.valueOf("HALF"));
-                        musBarView.addNote(note);
+                        musBarView.addNote(new NoteData(NoteData.NoteValue.HIGHER_C, duration));
                         break;
                 }
             }
@@ -198,7 +153,69 @@ public class MainActivity2 extends AppCompatActivity {
         bb5.setOnClickListener(bth);
         buttonCC2.setOnClickListener(bth);
 
+        buttonClear.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                musBarView.clearNotes();
+            }
+        });
 
+
+        buttonSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //все NoteData записываются в файл
+
+                ArrayList<NoteData> noteDataArrayList = new ArrayList<>();
+                for (int i=0,n=musBarView.getChildCount(); i < n; i++) {
+                    noteDataArrayList.add(((NoteView)musBarView.getChildAt(i)).noteData);
+                }
+
+                // Записывается в файл полученный список
+
+                try {
+                    ObjectOutputStream objectOutputStream = new ObjectOutputStream(openFileOutput(filename, MODE_PRIVATE));
+                    objectOutputStream.writeObject(noteDataArrayList);
+
+                    objectOutputStream.close();
+
+                }
+                catch (IOException e) {
+                    Log.e("Exception", "File write failed: " + e.toString());
+                }
+
+            }
+        });
+        buttonLoad.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Загружаются данные из файла
+                try {
+                    InputStream inputStream = openFileInput(filename);
+
+                    if ( inputStream != null ) {
+                        // Очищается текущий нотный стан
+                        musBarView.clearNotes();
+
+                        ObjectInputStream oi = new ObjectInputStream(inputStream);
+                        ArrayList<NoteData> noteDataArrayList = (ArrayList<NoteData>)oi.readObject();
+
+                        for (int i=0,n=noteDataArrayList.size(); i < n; i++) {
+                            musBarView.addNote(noteDataArrayList.get(i));
+                        }
+
+                        inputStream.close();
+                        oi.close();
+                    }
+                }
+                catch (ClassNotFoundException e) {
+                    //Log.e("login activity", "File not found: " + e.toString());
+                } catch (IOException e) {
+                    //Log.e("login activity", "Can not read file: " + e.toString());
+                }
+
+            }
+        });
     }
 
     @Override
@@ -207,42 +224,28 @@ public class MainActivity2 extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
-        String s = String.valueOf(id);
-
-        Log.d("AAAAAA", duration);
         switch (id) {
-            case R.id.sixteenth:
-                if (item.isChecked()) item.setChecked(false);
-                else item.setChecked(true);
-                duration = "SIXTEENTH";
-                return true;
             case R.id.eighth:
-                if (item.isChecked()) item.setChecked(false);
-                else item.setChecked(true);
-                duration = "EIGHTH";
+                item.setChecked(!item.isChecked());
+                duration = NoteData.NoteDuration.EIGHTH;
                 return true;
             case R.id.fourth:
-                if (item.isChecked()) item.setChecked(false);
-                else item.setChecked(true);
-                duration = "FOURTH";
+                item.setChecked(!item.isChecked());
+                duration = NoteData.NoteDuration.FOURTH;
                 return true;
             case R.id.half:
-                if (item.isChecked()) item.setChecked(false);
-                else item.setChecked(true);
-                duration = "HALF";
+                item.setChecked(!item.isChecked());
+                duration = NoteData.NoteDuration.HALF;
                 return true;
             case R.id.whole:
-                if (item.isChecked()) item.setChecked(false);
-                else item.setChecked(true);
-                duration = "WHOLE";
+                item.setChecked(!item.isChecked());
+                duration = NoteData.NoteDuration.WHOLE;
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
-
     }
 }
